@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InsufficientBalanceException extends RuntimeException {
+public class InsufficientBalanceException extends RuntimeException implements CustomException  {
     public InsufficientBalanceException(){}
 
     @Override

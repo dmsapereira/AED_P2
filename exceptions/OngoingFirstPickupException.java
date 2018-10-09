@@ -1,6 +1,6 @@
 package exceptions;
 
-public class OngoingFirstPickupException extends RuntimeException {
+public class OngoingFirstPickupException extends RuntimeException  implements CustomException {
     public OngoingFirstPickupException(){}
 
     @Override

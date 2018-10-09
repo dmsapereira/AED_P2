@@ -4,6 +4,8 @@ import bikeManagement.PickUp;
 import bikeManagement.parks.Park;
 import dataStructures.*;
 
+import java.util.Objects;
+
 public class BikeClass implements Bike {
     private String id, plate;
     private Park park;
@@ -41,5 +43,24 @@ public class BikeClass implements Bike {
     @Override
     public Iterator<PickUp> getPickUps() {
         return pickups.iterator();
+    }
+
+    @Override
+    public boolean isMoving() {
+        return !this.pickup.equals(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BikeClass bikeClass = (BikeClass) o;
+        return Objects.equals(id, bikeClass.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }

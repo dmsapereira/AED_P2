@@ -1,4 +1,5 @@
 import bikeManagement.BikeManagement;
+import dataStructures.Queue;
 
 import java.util.Scanner;
 
@@ -29,10 +30,13 @@ public class Main {
         Command input=readCommand(in);
         switch(input){
             case ADD_USER:
-
+                commandAddUser(in,system);
+                break;
             case REMOVE_USER:
+                commandRemoveUser(in,system);
                 break;
             case GET_USER_INFO:
+                commandGetUserInfo(in,system);
                 break;
             case ADD_PARK:
                 break;
@@ -60,6 +64,48 @@ public class Main {
                 break;
             case XS:
                 break;
+        }
+    }
+
+    private static void commandGetUserInfo(Scanner in, BikeManagement system) {
+        Queue<String> info;
+        String idUser=in.next();
+        in.nextLine();
+        in.nextLine();
+        try{
+            info=system.getUserInfo(idUser);
+            System.out.println(info.dequeue()+": "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+".");
+        }catch(RuntimeException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandRemoveUser(Scanner in, BikeManagement system) {
+        String idUser=in.next();
+        in.nextLine();
+        in.nextLine();
+        try{
+            system.removeUser(idUser);
+            System.out.println("Utilizador removido com sucesso.");
+        }catch(RuntimeException e){
+            System.out.println(e);
+        }
+    }
+
+    private static void commandAddUser(Scanner in, BikeManagement system) {
+        String idUser=in.next();
+        String nif=in.next();
+        String email=in.next();
+        String phone=in.next();
+        String name=in.next();
+        in.nextLine();
+        String address=in.nextLine();
+        in.nextLine();
+        try{
+            system.addUser(idUser,nif,email,phone,name,address);
+            System.out.println("Insercao de utilizador com sucesso");
+        }catch(RuntimeException e) {
+            System.out.println(e);
         }
     }
 }

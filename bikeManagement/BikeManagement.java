@@ -31,12 +31,12 @@ public interface BikeManagement extends Serializable {
 
     Iterator<PickUp> listUserPickups(String idUser) throws VoidUserException, NewUserException, OngoingFirstPickupException;
 
-    boolean parkedBike(String idBike, String idPark) throws VoidBikeException, VoidParkException, UnparkedBikeException;
+    boolean parkedBike(String idBike, String idPark) throws VoidBikeException, VoidParkException;
 
     Iterator<User> listDelayed();
 
-    Iterator<Park> favoriteParks();
+    Park favoriteParks();
 
-    Queue<String> getUser(String userId) throws VoidUserException;
+    Queue<String> getUserInfo(String userId) throws VoidUserException;
 
 }

@@ -1,6 +1,6 @@
 package exceptions;
 
-public class NewUserException extends RuntimeException {
+public class NewUserException extends RuntimeException implements CustomException  {
     public NewUserException(){}
 
     @Override

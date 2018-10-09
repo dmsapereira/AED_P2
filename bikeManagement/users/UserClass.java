@@ -6,6 +6,8 @@ import exceptions.InvalidDataException;
 import exceptions.OngoingFirstPickupException;
 import exceptions.VoidPickupsException;
 
+import java.util.Objects;
+
 public class UserClass implements User {
     private String id,nif,email,phone,name,address;
     private int balance, points;
@@ -111,5 +113,19 @@ public class UserClass implements User {
     @Override
     public Iterator<PickUp> getPickUps() throws OngoingFirstPickupException, VoidPickupsException {
         return pickups.iterator();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserClass userClass = (UserClass) o;
+        return Objects.equals(id, userClass.id);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(id);
     }
 }

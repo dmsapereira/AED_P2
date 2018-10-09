@@ -1,6 +1,6 @@
 package exceptions;
 
-public class MovingBikeException extends RuntimeException {
+public class MovingBikeException extends RuntimeException implements CustomException  {
     public MovingBikeException(){}
 
     @Override

@@ -1,6 +1,6 @@
 package exceptions;
 
-public class VoidBikeException extends RuntimeException {
+public class VoidBikeException extends RuntimeException implements CustomException  {
     public VoidBikeException(){}
 
     @Override

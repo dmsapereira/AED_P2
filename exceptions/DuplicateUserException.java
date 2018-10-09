@@ -1,6 +1,6 @@
 package exceptions;
 
-public class DuplicateUserException extends RuntimeException {
+public class DuplicateUserException extends RuntimeException implements CustomException  {
     public DuplicateUserException(){}
 
     @Override

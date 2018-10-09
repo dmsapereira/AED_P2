@@ -15,4 +15,6 @@ public interface Bike {
         void pickDown();
 
         Iterator<PickUp> getPickUps();
+
+        boolean isMoving();
 }
