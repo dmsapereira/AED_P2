@@ -7,6 +7,7 @@ import dataStructures.*;
 import java.util.Objects;
 
 public class BikeClass implements Bike {
+    static final long serialVersionUID=0L;
     private String id, plate;
     private Park park;
     private PickUp pickup;
@@ -30,6 +31,11 @@ public class BikeClass implements Bike {
     }
 
     @Override
+    public Park getPark() {
+        return this.park;
+    }
+
+    @Override
     public void pickUp(PickUp pickup) {
         this.pickup=pickup;
     }
@@ -47,7 +53,7 @@ public class BikeClass implements Bike {
 
     @Override
     public boolean isMoving() {
-        return !this.pickup.equals(null);
+        return this.pickup!=null;
     }
 
     @Override

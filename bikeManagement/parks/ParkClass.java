@@ -5,13 +5,16 @@ import dataStructures.Queue;
 import dataStructures.QueueInList;
 
 public class ParkClass implements Park {
+    static final long serialVersionUID = 0L;
     private String id, name, address;
     private Bike bike;
     private int pickups;
 
-    public ParkClass(String parkId, String name, String address){
-        this.id=parkId;
-        this.pickups=0;
+    public ParkClass(String parkId, String name, String address) {
+        this.id = parkId;
+        this.name = name;
+        this.address = address;
+        this.pickups = 0;
     }
 
     @Override
@@ -31,26 +34,44 @@ public class ParkClass implements Park {
 
     @Override
     public Queue<String> getParkInfo() {
-        Queue<String> info=new QueueInList<>();
-        info.enqueue("1");
-        info.enqueue(this.address);
+        Queue<String> info = new QueueInList<>();
         info.enqueue(this.name);
+        info.enqueue(this.address);
+        if (this.bike == null)
+            info.enqueue("0");
+        else
+            info.enqueue("1");
         return info;
     }
 
     @Override
     public void parkBike(Bike bike) {
-        this.bike=bike;
+        this.bike = bike;
+    }
+
+    @Override
+    public void addBike(Bike bike) {
+        this.bike = bike;
+    }
+
+    @Override
+    public void deleteBike() {
+        this.bike = null;
     }
 
     @Override
     public void pickUp() {
-        pickups++;
-        this.bike=null;
+        this.bike = null;
+        this.pickups++;
     }
 
     @Override
     public int getPickups() {
         return this.pickups;
+    }
+
+    @Override
+    public Bike getParkedBike() {
+        return this.bike;
     }
 }

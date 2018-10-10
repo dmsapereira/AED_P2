@@ -23,9 +23,9 @@ public interface BikeManagement extends Serializable {
 
     void pickUp(String idBike, String idUser) throws VoidBikeException, MovingBikeException, VoidUserException, BusyUserException, InsufficientBalanceException;
 
-    void pickDown(String idBike, String idPark, int duration) throws VoidBikeException, StoppedBikeException, VoidParkException, InvalidDataException;
+    User pickDown(String idBike, String idPark, int duration) throws VoidBikeException, StoppedBikeException, VoidParkException, InvalidDataException;
 
-    void chargeUser(String idUser, int amount) throws VoidUserException, InvalidDataException;
+    User chargeUser(String idUser, int amount) throws VoidUserException, InvalidDataException;
 
     Iterator<PickUp> listBikePickups(String idBike) throws VoidBikeException, UnusedBikeException, OngoingFirstPickupException;
 

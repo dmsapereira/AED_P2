@@ -8,7 +8,9 @@ import exceptions.InvalidDataException;
 import exceptions.OngoingFirstPickupException;
 import exceptions.VoidPickupsException;
 
-public interface User {
+import java.io.Serializable;
+
+public interface User extends Serializable {
 
     Queue<String> getUserInfo();
 

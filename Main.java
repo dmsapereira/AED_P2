@@ -1,110 +1,316 @@
 import bikeManagement.BikeManagement;
+import bikeManagement.BikeManagementClass;
+import bikeManagement.PickUp;
+import bikeManagement.parks.Park;
+import bikeManagement.users.User;
+import dataStructures.Iterator;
 import dataStructures.Queue;
+import exceptions.CustomException;
 
+import java.io.*;
 import java.util.Scanner;
 
 enum Command {
-    ADD_USER("ADDUSER"), REMOVE_USER("REMOVEUSER"), GET_USER_INFO("GETUSERINFO"), ADD_PARK("ADDPARK"), ADD_BIKE("ADDBIKE"), REMOVE_BIKE("REMOVEBIKE"), GET_PARK_INFO("GETPARNKINFO"), PICKUP("PICKUP"), PICKDOWN("PICKDOWN"), CHARGE_USER("CHARGEUSER"), BIKE_PICKUPS("BIKEPICKUPS"), USER_PICKUPS("USERPICKUPS"), PARKED_BIKE("PARKEDBIKE"), LIST_DELAYED("LISTDELAYED"), FAVORITE_PARKS("FAVORITEPARKS"), XS("XS");
+    ADDUSER(), REMOVEUSER(), GETUSERINFO(), ADDPARK(), ADDBIKE(), REMOVEBIKE(), GETPARKINFO(), PICKUP(), PICKDOWN(), CHARGEUSER(), BIKEPICKUPS(), USERPICKUPS(), PARKEDBIKE(), LISTDELAYED(), FAVORITEPARKS(), XS();
 
     String input;
-     Command(String command){
-        input=command;
-    }
 
-    String getInput(){
-         return input;
-    }
+    Command() {}
 }
 
 public class Main {
-    public static void main(String[] args){
-    Scanner in=new Scanner(System.in);
+     private static final String LIST_FORMAT = "%s %s %s %d %d %d\n";
+     private static final String USER_INFO_FORMAT = "%s: %s, %s, %s, %s, %s, %s\n";
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        BikeManagement system = load();
+        processCommand(in, system);
+        save(system);
+        System.out.println("Gravando e terminando...");
+        System.out.println();
     }
 
-    private static Command readCommand(Scanner in){
-        String input=in.next().toUpperCase();
-        return Command.valueOf(input);
+    private static Command readCommand(Scanner in) {
+        String input = in.next().toUpperCase();
+        return Command.valueOf(input.toUpperCase());
     }
 
-    private static void processCommand(Scanner in, BikeManagement system){
-        Command input=readCommand(in);
-        switch(input){
-            case ADD_USER:
-                commandAddUser(in,system);
-                break;
-            case REMOVE_USER:
-                commandRemoveUser(in,system);
-                break;
-            case GET_USER_INFO:
-                commandGetUserInfo(in,system);
-                break;
-            case ADD_PARK:
-                break;
-            case ADD_BIKE:
-                break;
-            case REMOVE_BIKE:
-                break;
-            case GET_PARK_INFO:
-                break;
-            case PICKUP:
-                break;
-            case PICKDOWN:
-                break;
-            case CHARGE_USER:
-                break;
-            case BIKE_PICKUPS:
-                break;
-            case USER_PICKUPS:
-                break;
-            case PARKED_BIKE:
-                break;
-            case LIST_DELAYED:
-                break;
-            case FAVORITE_PARKS:
-                break;
-            case XS:
-                break;
+    private static void processCommand(Scanner in, BikeManagement system) {
+        Command input = readCommand(in);
+        while (!input.equals(Command.XS)) {
+            switch (input) {
+                case ADDUSER:
+                    commandAddUser(in, system);
+                    break;
+                case REMOVEUSER:
+                    commandRemoveUser(in, system);
+                    break;
+                case GETUSERINFO:
+                    commandGetUserInfo(in, system);
+                    break;
+                case ADDPARK:
+                    commandAddPark(in, system);
+                    break;
+                case ADDBIKE:
+                    commandAddBike(in, system);
+                    break;
+                case REMOVEBIKE:
+                    commandRemoveBike(in, system);
+                    break;
+                case GETPARKINFO:
+                    commandGetParkInfo(in, system);
+                    break;
+                case PICKUP:
+                    commandPickup(in, system);
+                    break;
+                case PICKDOWN:
+                    commandPickdown(in, system);
+                    break;
+                case CHARGEUSER:
+                    commandChargeUser(in, system);
+                    break;
+                case BIKEPICKUPS:
+                    commandBikePickups(in, system);
+                    break;
+                case USERPICKUPS:
+                    commandUserPickups(in, system);
+                    break;
+                case PARKEDBIKE:
+                    commandParkedBike(in, system);
+                    break;
+                case LISTDELAYED:
+                    commandListDelayed(in, system);
+                    break;
+                case FAVORITEPARKS:
+                    commandFavoriteParks(in, system);
+                    break;
+                case XS:
+                    break;
+            }
+            System.out.println();
+            input = readCommand(in);
+        }
+    }
+
+    private static void save(BikeManagement system) {
+        try {
+            ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("savefile"));
+            file.writeObject(system);
+            file.flush();
+            file.close();
+        } catch (IOException e) {
+            System.out.println("Ficheiro nao foi encontrado.");
+        }
+    }
+
+    private static BikeManagement load() {
+        BikeManagement management;
+        try {
+            ObjectInputStream file = new ObjectInputStream((new FileInputStream("savefile")));
+            management = (BikeManagement) file.readObject();
+            file.close();
+        } catch (IOException | ClassNotFoundException e) {
+            management = new BikeManagementClass();
+        }
+        return management;
+    }
+
+    private static void commandFavoriteParks(Scanner in, BikeManagement system) {
+        Park park;
+        in.nextLine();
+        try {
+            park = system.favoriteParks();
+            if (park.getPickups() == 0)
+                System.out.println("Nao foram efetuados pickups.");
+            else
+                System.out.println(park.getName() + ": " + park.getAddress() + ", " + park.getPickups());
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandListDelayed(Scanner in, BikeManagement system) {
+        System.out.println("Nao se registaram atrasos.");
+    }
+
+    private static void commandParkedBike(Scanner in, BikeManagement system) {
+        String idBike = in.next();
+        String idPark = in.next();
+        in.nextLine();
+        try {
+            if (system.parkedBike(idBike, idPark))
+                System.out.println("Bicicleta estacionada no parque.");
+            else
+                System.out.println("Bicicleta nao esta em parque.");
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void printBikePickups(Iterator<PickUp> itera) {
+        PickUp current;
+        if (!itera.hasNext())
+            System.out.println("Nao foram efetuados pickups.");
+        else {
+            while (itera.hasNext()) {
+                current = itera.next();
+                System.out.printf(LIST_FORMAT, current.getUser().getUserId(), current.getInitialPark().getParkId(), current.getFinalPark().getParkId(), current.getDuration(), current.getDelay(), current.getCost());
+            }
+        }
+    }
+    private static void printUserPickups(Iterator<PickUp> itera) {
+        PickUp current;
+        if (!itera.hasNext())
+            System.out.println("Nao foram efetuados pickups.");
+        else {
+            while (itera.hasNext()) {
+                current = itera.next();
+                System.out.printf(LIST_FORMAT, current.getBike().getBikeId(), current.getInitialPark().getParkId(), current.getFinalPark().getParkId(), current.getDuration(), current.getDelay(), current.getCost());
+            }
+        }
+    }
+
+    private static void commandUserPickups(Scanner in, BikeManagement system) {
+        String idUser = in.next();
+        in.nextLine();
+        try {
+            printUserPickups(system.listUserPickups(idUser));
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandBikePickups(Scanner in, BikeManagement system) {
+        String idBike = in.next();
+        in.nextLine();
+        try {
+            printBikePickups(system.listBikePickups(idBike));
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandChargeUser(Scanner in, BikeManagement system) {
+        User user;
+        String idUser = in.next();
+        int amount = in.nextInt();
+        in.nextLine();
+        try {
+            user = system.chargeUser(idUser, amount);
+            System.out.println("Saldo: " + user.getBalance() + " euros");
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandPickdown(Scanner in, BikeManagement system) {
+        User user;
+        String idBike = in.next();
+        String idPark = in.next();
+        int duration = in.nextInt();
+        in.nextLine();
+        try {
+            user = system.pickDown(idBike, idPark, duration);
+            System.out.println("Pickdown com sucesso: " + user.getBalance() + " euros, " + user.getPoints() + " pontos");
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandPickup(Scanner in, BikeManagement system) {
+        String idBike = in.next();
+        String idUser = in.next();
+        in.nextLine();
+        try {
+            system.pickUp(idBike, idUser);
+            System.out.println("PickUp com sucesso.");
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandGetParkInfo(Scanner in, BikeManagement system) {
+        Queue<String> info;
+        String idPark = in.next();
+        in.nextLine();
+        try {
+            info = system.getParkInfo(idPark);
+            System.out.println(info.dequeue() + ": " + info.dequeue() + ", " + info.dequeue());
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandRemoveBike(Scanner in, BikeManagement system) {
+        String idBike = in.next();
+        in.nextLine();
+        try {
+            system.removeBike(idBike);
+            System.out.println("Bicicleta removida com sucesso.");
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandAddBike(Scanner in, BikeManagement system) {
+        String idBike = in.next();
+        String idPark = in.next();
+        String plate = in.nextLine().trim();
+        try {
+            system.addBike(idBike, idPark, plate);
+            System.out.println("Bicicleta adicionada com sucesso.");
+        } catch (CustomException e) {
+            System.out.println(e);
+        }
+    }
+
+    private static void commandAddPark(Scanner in, BikeManagement system) {
+        String idPark = in.next();
+        String name = in.nextLine().trim();
+        String address = in.nextLine().trim();
+        try {
+            system.addPark(idPark, name, address);
+            System.out.println("Parque adicionado com sucesso.");
+        } catch (CustomException e) {
+            System.out.println(e);
         }
     }
 
     private static void commandGetUserInfo(Scanner in, BikeManagement system) {
         Queue<String> info;
-        String idUser=in.next();
+        String idUser = in.next();
         in.nextLine();
-        in.nextLine();
-        try{
-            info=system.getUserInfo(idUser);
-            System.out.println(info.dequeue()+": "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+", "+info.dequeue()+".");
-        }catch(RuntimeException e) {
+        try {
+            info = system.getUserInfo(idUser);
+            System.out.printf(USER_INFO_FORMAT, info.dequeue(), info.dequeue(), info.dequeue(), info.dequeue(), info.dequeue(), info.dequeue(), info.dequeue());
+        } catch (CustomException e) {
             System.out.println(e);
         }
     }
 
     private static void commandRemoveUser(Scanner in, BikeManagement system) {
-        String idUser=in.next();
+        String idUser = in.next();
         in.nextLine();
-        in.nextLine();
-        try{
+        try {
             system.removeUser(idUser);
             System.out.println("Utilizador removido com sucesso.");
-        }catch(RuntimeException e){
+        } catch (CustomException e) {
             System.out.println(e);
         }
     }
 
     private static void commandAddUser(Scanner in, BikeManagement system) {
-        String idUser=in.next();
-        String nif=in.next();
-        String email=in.next();
-        String phone=in.next();
-        String name=in.next();
-        in.nextLine();
-        String address=in.nextLine();
-        in.nextLine();
-        try{
-            system.addUser(idUser,nif,email,phone,name,address);
-            System.out.println("Insercao de utilizador com sucesso");
-        }catch(RuntimeException e) {
+        String idUser = in.next();
+        String nif = in.next();
+        String email = in.next();
+        String phone = in.next();
+        String name = in.nextLine().trim();
+        String address = in.nextLine();
+        try {
+            system.addUser(idUser, nif, email, phone, name, address);
+            System.out.println("Insercao de utilizador com sucesso.");
+        } catch (CustomException e) {
             System.out.println(e);
         }
     }

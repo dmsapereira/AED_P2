@@ -1,6 +1,6 @@
 package exceptions;
 
-public class VoidParkException extends RuntimeException implements CustomException  {
+public class VoidParkException extends CustomException  {
     public VoidParkException(){}
 
     @Override

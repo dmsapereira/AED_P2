@@ -1,6 +1,6 @@
 package exceptions;
 
-public class BusyUserException extends RuntimeException implements CustomException {
+public class BusyUserException extends CustomException {
     public BusyUserException(){}
 
     @Override

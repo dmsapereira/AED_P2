@@ -9,6 +9,7 @@ import exceptions.VoidPickupsException;
 import java.util.Objects;
 
 public class UserClass implements User {
+    static final long serialVersionUID=0L;
     private String id,nif,email,phone,name,address;
     private int balance, points;
     private PickUp currentPickup;
@@ -28,13 +29,13 @@ public class UserClass implements User {
     @Override
     public Queue<String> getUserInfo() {
         Queue<String> info=new QueueInList<>();
-        info.enqueue(String.valueOf(this.points));
-        info.enqueue(String.valueOf(this.balance));
-        info.enqueue(this.phone);
-        info.enqueue(this.email);
-        info.enqueue(this.address);
-        info.enqueue(this.nif);
         info.enqueue(this.name);
+        info.enqueue(this.nif);
+        info.enqueue(this.address);
+        info.enqueue(this.email);
+        info.enqueue(this.phone);
+        info.enqueue(String.valueOf(this.balance));
+        info.enqueue(String.valueOf(this.points));
         return info;
     }
 

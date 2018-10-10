@@ -1,6 +1,6 @@
 package exceptions;
 
-public class DuplicateBikeException extends RuntimeException implements CustomException {
+public class DuplicateBikeException extends CustomException {
     public DuplicateBikeException(){}
 
     @Override

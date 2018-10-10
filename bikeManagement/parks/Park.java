@@ -3,7 +3,9 @@ package bikeManagement.parks;
 import bikeManagement.bikes.Bike;
 import dataStructures.Queue;
 
-public interface Park {
+import java.io.Serializable;
+
+public interface Park extends Serializable {
 
     String getParkId();
 
@@ -15,8 +17,14 @@ public interface Park {
 
     void parkBike(Bike bike);
 
+    void addBike(Bike bike);
+
+    void deleteBike();
+
     void pickUp();
 
     int getPickups();
+
+    Bike getParkedBike();
 
 }

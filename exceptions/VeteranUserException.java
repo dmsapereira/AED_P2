@@ -1,6 +1,6 @@
 package exceptions;
 
-public class VeteranUserException extends RuntimeException implements CustomException  {
+public class VeteranUserException extends CustomException  {
     public VeteranUserException(){}
 
     @Override

@@ -1,6 +1,6 @@
 package exceptions;
 
-public class UsedBikeException extends RuntimeException implements CustomException  {
+public class UsedBikeException extends CustomException  {
     public UsedBikeException(){}
 
     @Override

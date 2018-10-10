@@ -1,6 +1,6 @@
 package exceptions;
 
-public class VoidUserException extends RuntimeException implements CustomException  {
+public class VoidUserException extends CustomException  {
 
     public VoidUserException(){}
 

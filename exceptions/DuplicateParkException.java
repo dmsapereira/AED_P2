@@ -1,6 +1,6 @@
 package exceptions;
 
-public class DuplicateParkException extends RuntimeException implements CustomException {
+public class DuplicateParkException extends CustomException {
     public DuplicateParkException(){}
 
     @Override

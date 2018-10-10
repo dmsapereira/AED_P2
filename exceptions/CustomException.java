@@ -1,4 +1,5 @@
 package exceptions;
 
-public interface CustomException {
+public class CustomException extends RuntimeException {
+    public CustomException(){}
 }

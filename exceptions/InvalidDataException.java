@@ -1,6 +1,6 @@
 package exceptions;
 
-public class InvalidDataException extends RuntimeException implements CustomException  {
+public class InvalidDataException extends CustomException  {
     public InvalidDataException(){}
 
     @Override

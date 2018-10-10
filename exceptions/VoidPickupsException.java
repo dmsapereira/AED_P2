@@ -1,6 +1,6 @@
 package exceptions;
 
-public class VoidPickupsException extends RuntimeException implements CustomException  {
+public class VoidPickupsException extends CustomException  {
     public VoidPickupsException(){}
 
     @Override
