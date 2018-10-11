@@ -1,6 +1,6 @@
 package bikeManagement.bikes;
 
-import bikeManagement.PickUp;
+import bikeManagement.pickup.PickUp;
 import bikeManagement.parks.Park;
 import dataStructures.*;
 
@@ -38,10 +38,12 @@ public class BikeClass implements Bike {
     @Override
     public void pickUp(PickUp pickup) {
         this.pickup=pickup;
+        this.park=null;
     }
 
     @Override
     public void pickDown() {
+        this.park=this.pickup.getFinalPark();
         pickups.addLast(this.pickup);
         pickup=null;
     }

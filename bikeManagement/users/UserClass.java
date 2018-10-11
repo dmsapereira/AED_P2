@@ -1,9 +1,9 @@
 package bikeManagement.users;
 
-import bikeManagement.PickUp;
+import bikeManagement.pickup.PickUp;
 import dataStructures.*;
 import exceptions.InvalidDataException;
-import exceptions.OngoingFirstPickupException;
+import exceptions.user.OngoingFirstPickupException;
 import exceptions.VoidPickupsException;
 
 import java.util.Objects;
@@ -45,38 +45,8 @@ public class UserClass implements User {
     }
 
     @Override
-    public String getNIF() {
-        return this.nif;
-    }
-
-    @Override
-    public String getEmail() {
-        return this.email;
-    }
-
-    @Override
-    public String getPhone() {
-        return this.phone;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public String getAdress() {
-        return this.address;
-    }
-
-    @Override
     public int getPoints() {
         return this.points;
-    }
-
-    @Override
-    public void addPoint() {
-        this.points++;
     }
 
     @Override

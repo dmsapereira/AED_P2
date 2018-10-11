@@ -3,18 +3,18 @@ package dataStructures;
 import java.io.Serializable;
 
 /**
- * Double List Node Implementation 
+ * Double List Node Implementation
  * @author AED  Team
  * @version 1.0
  * @param <E> Generic Element
- * 
+ *
  */
 class DListNode<E> implements Serializable
 {
 
-	/**
-	 * Constant for serialization
-	 */
+    /**
+     * Constant for serialization
+     */
     static final long serialVersionUID = 0L;
 
 
@@ -35,12 +35,12 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @param theElement - The element to be contained in the node
      * @param thePrevious - the previous node
      * @param theNext - the next node
      */
-    public DListNode( E theElement, DListNode<E> thePrevious, 
+    public DListNode( E theElement, DListNode<E> thePrevious,
                       DListNode<E> theNext )
     {
         element = theElement;
@@ -50,7 +50,7 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @param theElement to be contained in the node
      */
     public DListNode( E theElement )
@@ -60,7 +60,7 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @return the element contained in the node
      */
     public E getElement( )
@@ -70,7 +70,7 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @return the previous node
      */
     public DListNode<E> getPrevious( )
@@ -80,7 +80,7 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @return the next node
      */
     public DListNode<E> getNext( )
@@ -90,7 +90,7 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @param newElement - New element to replace the current element
      */
     public void setElement( E newElement )
@@ -100,7 +100,7 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @param newPrevious - node to replace the current previous node
      */
     public void setPrevious( DListNode<E> newPrevious )
@@ -110,7 +110,7 @@ class DListNode<E> implements Serializable
 
 
     /**
-     * 
+     *
      * @param newNext - node to replace the next node
      */
     public void setNext( DListNode<E> newNext )

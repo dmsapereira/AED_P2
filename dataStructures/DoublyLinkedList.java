@@ -319,18 +319,6 @@ public class DoublyLinkedList<E> implements List<E>
         }
     }
 
-
-    /**
-     * Removes all of the elements from the specified list and
-     * inserts them at the end of the list (in proper sequence).
-     * @param list - list to be appended to the end of this
-     */
-    public void append( DoublyLinkedList<E> list )
-    {
-        //TODO: Left as an exercise.
-    }
-
-
 }   
 
 

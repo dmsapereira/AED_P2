@@ -1,24 +1,31 @@
 import bikeManagement.BikeManagement;
 import bikeManagement.BikeManagementClass;
-import bikeManagement.PickUp;
+import bikeManagement.pickup.PickUp;
 import bikeManagement.parks.Park;
 import bikeManagement.users.User;
 import dataStructures.Iterator;
 import dataStructures.Queue;
 import exceptions.CustomException;
-
 import java.io.*;
 import java.util.Scanner;
 
+/**
+ * @author David Pereira (52890) dmsa.pereira@campus.fct.unl.pt
+ */
+
+/**
+ * Enum to facilitate the recognition of user input
+ */
 enum Command {
     ADDUSER(), REMOVEUSER(), GETUSERINFO(), ADDPARK(), ADDBIKE(), REMOVEBIKE(), GETPARKINFO(), PICKUP(), PICKDOWN(), CHARGEUSER(), BIKEPICKUPS(), USERPICKUPS(), PARKEDBIKE(), LISTDELAYED(), FAVORITEPARKS(), XS();
-
-    String input;
 
     Command() {}
 }
 
 public class Main {
+    /**
+     * Constants to facilitate the printing of predefined information
+     */
      private static final String LIST_FORMAT = "%s %s %s %d %d %d\n";
      private static final String USER_INFO_FORMAT = "%s: %s, %s, %s, %s, %s, %s\n";
 
@@ -31,11 +38,18 @@ public class Main {
         System.out.println();
     }
 
+    /**
+     * Reads input and returns the associated Command
+     * @return <code>Command</code> that matches the user input
+     */
     private static Command readCommand(Scanner in) {
         String input = in.next().toUpperCase();
         return Command.valueOf(input.toUpperCase());
     }
 
+    /**
+     * Processes the <code>Command</code> received from <code>readCommand(...)</code>
+     */
     private static void processCommand(Scanner in, BikeManagement system) {
         Command input = readCommand(in);
         while (!input.equals(Command.XS)) {
@@ -93,6 +107,9 @@ public class Main {
         }
     }
 
+    /**
+     *Saves the execution state in a local file
+     */
     private static void save(BikeManagement system) {
         try {
             ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("savefile"));
@@ -104,6 +121,9 @@ public class Main {
         }
     }
 
+    /**
+     *Loads a saved execution state created by <code>save(...)</code>. If none exists, a new <code>BikeManagement</code> is created.
+     */
     private static BikeManagement load() {
         BikeManagement management;
         try {
@@ -116,6 +136,9 @@ public class Main {
         return management;
     }
 
+    /**
+     * Executes the favoriteParks command
+     */
     private static void commandFavoriteParks(Scanner in, BikeManagement system) {
         Park park;
         in.nextLine();
@@ -130,10 +153,16 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the listDelayed command
+     */
     private static void commandListDelayed(Scanner in, BikeManagement system) {
         System.out.println("Nao se registaram atrasos.");
     }
 
+    /**
+     *Executes the parkedBike
+     */
     private static void commandParkedBike(Scanner in, BikeManagement system) {
         String idBike = in.next();
         String idPark = in.next();
@@ -148,6 +177,9 @@ public class Main {
         }
     }
 
+    /**
+     * Prints the information required by the bikePickUps command
+     */
     private static void printBikePickups(Iterator<PickUp> itera) {
         PickUp current;
         if (!itera.hasNext())
@@ -159,6 +191,10 @@ public class Main {
             }
         }
     }
+
+    /**
+     * Prints the information required by the userPickUps command
+     */
     private static void printUserPickups(Iterator<PickUp> itera) {
         PickUp current;
         if (!itera.hasNext())
@@ -171,6 +207,9 @@ public class Main {
         }
     }
 
+    /**
+     * Ezecutes the userPickUps command
+     */
     private static void commandUserPickups(Scanner in, BikeManagement system) {
         String idUser = in.next();
         in.nextLine();
@@ -181,6 +220,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the bikePickUps command
+     */
     private static void commandBikePickups(Scanner in, BikeManagement system) {
         String idBike = in.next();
         in.nextLine();
@@ -191,6 +233,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the chargeUser command
+     */
     private static void commandChargeUser(Scanner in, BikeManagement system) {
         User user;
         String idUser = in.next();
@@ -204,6 +249,9 @@ public class Main {
         }
     }
 
+    /**
+     * Ezecutes the pickDown command
+     */
     private static void commandPickdown(Scanner in, BikeManagement system) {
         User user;
         String idBike = in.next();
@@ -218,6 +266,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the pickUp command
+     */
     private static void commandPickup(Scanner in, BikeManagement system) {
         String idBike = in.next();
         String idUser = in.next();
@@ -230,6 +281,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the getParkInfo command
+     */
     private static void commandGetParkInfo(Scanner in, BikeManagement system) {
         Queue<String> info;
         String idPark = in.next();
@@ -242,6 +296,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the removeBike command
+     */
     private static void commandRemoveBike(Scanner in, BikeManagement system) {
         String idBike = in.next();
         in.nextLine();
@@ -253,6 +310,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the addBike command
+     */
     private static void commandAddBike(Scanner in, BikeManagement system) {
         String idBike = in.next();
         String idPark = in.next();
@@ -265,6 +325,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the addPark command
+     */
     private static void commandAddPark(Scanner in, BikeManagement system) {
         String idPark = in.next();
         String name = in.nextLine().trim();
@@ -277,6 +340,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the getUserInfo command
+     */
     private static void commandGetUserInfo(Scanner in, BikeManagement system) {
         Queue<String> info;
         String idUser = in.next();
@@ -289,6 +355,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the removeUser command
+     */
     private static void commandRemoveUser(Scanner in, BikeManagement system) {
         String idUser = in.next();
         in.nextLine();
@@ -300,6 +369,9 @@ public class Main {
         }
     }
 
+    /**
+     * Executes the addUser command
+     */
     private static void commandAddUser(Scanner in, BikeManagement system) {
         String idUser = in.next();
         String nif = in.next();

@@ -1,22 +1,22 @@
 package dataStructures;
 
 /**
- * Implementation of Two Way Iterator for DLList 
+ * Implementation of Two Way Iterator for DLList
  * @author AED  Team
  * @version 1.0
  * @param <E> Generic Element
- * 
+ *
  */
 class DoublyLLIterator<E> implements TwoWayIterator<E>
 {
 
-	/**
-	 * Serial Version UID of the Class
-	 */
+    /**
+     * Serial Version UID of the Class
+     */
     static final long serialVersionUID = 0L;
 
 
-    /** 
+    /**
      * Node with the first element in the iteration.
      */
     protected DListNode<E> firstNode;
@@ -47,7 +47,7 @@ class DoublyLLIterator<E> implements TwoWayIterator<E>
         firstNode = first;
         lastNode = last;
         this.rewind();
-    }      
+    }
 
 
     @Override

@@ -1,4 +1,4 @@
-package bikeManagement;
+package bikeManagement.pickup;
 
 import bikeManagement.bikes.Bike;
 import bikeManagement.parks.Park;

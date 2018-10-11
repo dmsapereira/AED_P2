@@ -1,5 +1,7 @@
 package bikeManagement;
 
+import bikeManagement.pickup.PickUp;
+import bikeManagement.pickup.PickUpClass;
 import bikeManagement.bikes.Bike;
 import bikeManagement.bikes.BikeClass;
 import bikeManagement.parks.Park;
@@ -9,6 +11,10 @@ import bikeManagement.users.UserClass;
 import dataStructures.Iterator;
 import dataStructures.Queue;
 import exceptions.*;
+import exceptions.bike.*;
+import exceptions.park.DuplicateParkException;
+import exceptions.park.VoidParkException;
+import exceptions.user.*;
 
 public class BikeManagementClass implements BikeManagement {
     static final long serialVersionUID = 0L;
@@ -161,11 +167,6 @@ public class BikeManagementClass implements BikeManagement {
         else {
             return this.park.getParkedBike() != null && this.park.getParkedBike().getBikeId().equalsIgnoreCase(idBike);
         }
-    }
-
-    @Override
-    public Iterator<User> listDelayed() {
-        return null;
     }
 
     @Override
