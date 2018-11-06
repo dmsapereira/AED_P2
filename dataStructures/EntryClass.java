@@ -1,6 +1,6 @@
 package dataStructures;
 
-public class EntryClass<K extends Comparable<K>,V> implements Entry<K,V>,Comparable<Entry> {
+public class EntryClass<K extends Comparable<K>,V> implements Entry<K,V>,Comparable<Entry<K,V>> {
     private K key;
     private V value;
 
@@ -19,7 +19,21 @@ public class EntryClass<K extends Comparable<K>,V> implements Entry<K,V>,Compara
     }
 
     @Override
-    public int compareTo(Entry element) {
+    public V setValue(V value) {
+        V oldValue=this.value;
+        this.value=value;
+        return oldValue;
+    }
+
+    @Override
+    public K setKey(K key) {
+        K oldKey=this.key;
+        this.key=key;
+        return oldKey;
+    }
+
+    @Override
+    public int compareTo(Entry<K,V> element) {
         return element.getKey().compareTo(this.key);
     }
 }

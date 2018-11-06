@@ -24,4 +24,18 @@ public interface Entry<K,V> extends Serializable, Comparable<Entry<K,V>> {
 	 */
     V getValue( );
 
+	/**
+	 * Changes the value in the entry.
+	 * @param value new value
+	 * @return old value
+	 */
+	V setValue(V value);
+
+	/**
+	 * Changes the key in the entry
+	 * @param key new key
+	 * @return old key
+	 */
+    K setKey(K key);
+
 }
