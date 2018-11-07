@@ -17,14 +17,14 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
     public Entry<K, V> minEntry() throws EmptyDictionaryException {
         if (this.isEmpty())
             throw new EmptyDictionaryException();
-        return this.tail.getElement();
+        return this.head.getElement();
     }
 
     @Override
     public Entry<K, V> maxEntry() throws EmptyDictionaryException {
         if(this.isEmpty())
             throw new EmptyDictionaryException();
-        return this.head.getElement();
+        return this.tail.getElement();
     }
 
     @Override
@@ -54,7 +54,6 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
             newNode.setPrevious(current.getPrevious());
         } else
             this.head = newNode;
-
         newNode.setNext(current);
         current.setPrevious(newNode);
     }
@@ -83,6 +82,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
             for (int i = 0; i < this.size; i++) {
                 if (newNode.getElement().getKey().compareTo(current.getElement().getKey()) < 0) {
                     this.insertNodeBefore(newNode, current);
+                    this.size++;
                     return null;
                 }
                 current = current.getNext();
@@ -92,7 +92,8 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
             this.tail = newNode;
         } else
             return this.searchForNode(key).getElement().setValue(value);
-        return value;
+        this.size++;
+        return null;
     }
 
     /**

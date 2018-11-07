@@ -1,14 +1,11 @@
 package bikeManagement;
-import bikeManagement.pickup.PickUp;
-import bikeManagement.parks.Park;
-import bikeManagement.users.User;
 import dataStructures.Iterator;
 import dataStructures.Queue;
-import exceptions.*;
-import exceptions.bike.*;
-import exceptions.park.DuplicateParkException;
-import exceptions.park.VoidParkException;
-import exceptions.user.*;
+import bikeManagement.exceptions.*;
+import bikeManagement.exceptions.bike.*;
+import bikeManagement.exceptions.park.DuplicateParkException;
+import bikeManagement.exceptions.park.VoidParkException;
+import bikeManagement.exceptions.user.*;
 
 import java.io.Serializable;
 
@@ -62,12 +59,12 @@ public interface BikeManagement extends Serializable {
     void removeBike(String idBike) throws UsedBikeException, VoidBikeException;
 
     /**
-     * Returns a <code>Queue</code> with the <code>Park</code>'s info in the same order as the method <code>Park.getParkInfo()</code>
+     * Returns the <code>Park</code>
      * @param parkId <code>Park</code> ID
-     * @return <code>Queue</code> with the Park's info
+     * @return <code>Park</code> with the ID
      * @throws VoidParkException if the <code>Park</code> doesn't exist
      */
-    Queue<String> getParkInfo(String parkId) throws VoidParkException;
+    Park getPark(String parkId) throws VoidParkException;
 
     /**
      * Picks up a <code>Bike</code>
@@ -141,11 +138,10 @@ public interface BikeManagement extends Serializable {
     Park favoriteParks();
 
     /**
-     * Returns a <code>Queue</code> of <code>User</code> info, in the same order as <code>User.getUserInfo()</code>
      * @param userId <code>User</code> ID
-     * @return <code>Queue</code> of <code>User</code> info
+     * @return <code>User</code> with the given ID
      * @throws VoidUserException if the <code>User</code> doesn't exist
      */
-    Queue<String> getUserInfo(String userId) throws VoidUserException;
+    User getUser(String userId) throws VoidUserException;
 
 }
