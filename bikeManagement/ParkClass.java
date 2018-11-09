@@ -59,6 +59,10 @@ class ParkClass implements Park {
         this.pickups++;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getPickups() {
         return this.pickups;

@@ -2,7 +2,7 @@ package bikeManagement;
 
 import dataStructures.Iterator;
 import bikeManagement.exceptions.user.OngoingFirstPickupException;
-import bikeManagement.exceptions.VoidPickupsException;
+import bikeManagement.exceptions.user.VoidPickupsException;
 
 import java.io.Serializable;
 

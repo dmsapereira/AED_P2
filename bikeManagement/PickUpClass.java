@@ -1,6 +1,8 @@
 package bikeManagement;
 
 class PickUpClass implements PickUp {
+    static final int MAX_DELAY=60;
+    static final int DELAY_COST_TIME=30;
     static final long serialVersionUID = 0L;
     private User user;
     private Bike bike;
@@ -47,7 +49,7 @@ class PickUpClass implements PickUp {
 
     @Override
     public int getDelay() {
-        int delay = this.duration - 60;
+        int delay = this.duration - MAX_DELAY;
         if (delay <= 0)
             return 0;
         else
@@ -56,6 +58,6 @@ class PickUpClass implements PickUp {
 
     @Override
     public int getCost() {
-        return this.getDelay() % 30;
+        return this.getDelay() % DELAY_COST_TIME;
     }
 }

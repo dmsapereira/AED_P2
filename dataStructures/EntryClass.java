@@ -34,6 +34,6 @@ public class EntryClass<K extends Comparable<K>,V> implements Entry<K,V>,Compara
 
     @Override
     public int compareTo(Entry<K,V> element) {
-        return element.getKey().compareTo(this.key);
+        return 1;
     }
 }

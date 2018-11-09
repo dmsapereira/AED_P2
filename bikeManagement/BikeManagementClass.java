@@ -10,7 +10,14 @@ import bikeManagement.exceptions.park.VoidParkException;
 import bikeManagement.exceptions.user.*;
 
 public class BikeManagementClass implements BikeManagement {
+    /**
+     * Serializable
+     */
     static final long serialVersionUID = 0L;
+
+    /**
+     * Instance Variables
+     */
     private HashTable<String, UserClass> users;
     private HashTable<String, BikeClass> bikes;
     private ParkClass park;
@@ -121,8 +128,8 @@ public class BikeManagementClass implements BikeManagement {
             user.pickDown();
             this.park.parkBike(bike);
             bike.pickDown();
-            if (duration > 60)
-                user.subtractBalance((duration - 60) % 30);
+            if (duration > PickUpClass.MAX_DELAY)
+                user.subtractBalance((duration - PickUpClass.MAX_DELAY) % PickUpClass.DELAY_COST_TIME);
             return user;
         }
     }

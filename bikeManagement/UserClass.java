@@ -2,8 +2,6 @@ package bikeManagement;
 
 import dataStructures.*;
 import bikeManagement.exceptions.InvalidDataException;
-import bikeManagement.exceptions.user.OngoingFirstPickupException;
-import bikeManagement.exceptions.VoidPickupsException;
 
 import java.util.Objects;
 

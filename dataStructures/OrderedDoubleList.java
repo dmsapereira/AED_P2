@@ -13,6 +13,61 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
         this.size = 0;
     }
 
+    /**
+     * @param node node to remove
+     * @pre: this.size!=0 && node!=null
+     */
+    private void removeNode(DListNode<Entry<K, V>> node) {
+        if (this.size == 1) {
+            this.head = null;
+            this.tail = null;
+        } else if (this.head.equals(node)) {
+            this.head = node.getNext();
+            this.head.setPrevious(null);
+        } else if (this.tail.equals(node)) {
+            this.tail = node.getPrevious();
+            this.tail.setNext(null);
+        } else {
+            node.getPrevious().setNext(node.getNext());
+            node.getNext().setPrevious(node.getPrevious());
+        }
+        this.size--;
+    }
+
+    /**
+     * @param newNode node to insert
+     * @param current existing node that follow the new one
+     * @pre: current!=null && newNode!=null
+     * inserts a new node before a previous existing one
+     */
+    private void insertNodeBefore(DListNode<Entry<K, V>> newNode, DListNode<Entry<K, V>> current) {
+        if (current.getPrevious() != null) {
+            current.getPrevious().setNext(newNode);
+            newNode.setPrevious(current.getPrevious());
+        } else
+            this.head = newNode;
+        newNode.setNext(current);
+        current.setPrevious(newNode);
+    }
+
+    /**
+     * searches for a node
+     *
+     * @param key node's entry's key
+     * @return Node with the requested key, null if none is found
+     */
+    private DListNode<Entry<K, V>> searchForNode(K key) {
+        if (this.size == 0)
+            return null;
+        DListNode<Entry<K, V>> current = this.head;
+        while (current != null) {
+            if (current.getElement().getKey().equals(key))
+                return current;
+            current = current.getNext();
+        }
+        return null;
+    }
+
     @Override
     public Entry<K, V> minEntry() throws EmptyDictionaryException {
         if (this.isEmpty())
@@ -22,7 +77,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
 
     @Override
     public Entry<K, V> maxEntry() throws EmptyDictionaryException {
-        if(this.isEmpty())
+        if (this.isEmpty())
             throw new EmptyDictionaryException();
         return this.tail.getElement();
     }
@@ -48,28 +103,6 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
         return null;
     }
 
-    private void insertNodeBefore(DListNode<Entry<K, V>> newNode, DListNode<Entry<K, V>> current) {
-        if (current.getPrevious() != null) {
-            current.getPrevious().setNext(newNode);
-            newNode.setPrevious(current.getPrevious());
-        } else
-            this.head = newNode;
-        newNode.setNext(current);
-        current.setPrevious(newNode);
-    }
-
-    private DListNode<Entry<K, V>> searchForNode(K key) {
-        if (this.size == 0)
-            return null;
-        DListNode<Entry<K, V>> current = this.head;
-        while (current != null) {
-            if (current.getElement().getKey().equals(key))
-                return current;
-            current = current.getNext();
-        }
-        return null;
-    }
-
     @Override
     @SuppressWarnings("unchecked")
     public V insert(K key, V value) {
@@ -80,7 +113,7 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
         } else if (this.find(key) == null) {
             DListNode<Entry<K, V>> current = this.head;
             for (int i = 0; i < this.size; i++) {
-                if (newNode.getElement().getKey().compareTo(current.getElement().getKey()) < 0) {
+                if (newNode.getElement().compareTo(current.getElement()) < 0) {
                     this.insertNodeBefore(newNode, current);
                     this.size++;
                     return null;
@@ -94,27 +127,6 @@ public class OrderedDoubleList<K extends Comparable<K>, V> implements OrderedDic
             return this.searchForNode(key).getElement().setValue(value);
         this.size++;
         return null;
-    }
-
-    /**
-     * @param node node to remove
-     * @pre: this.size!=0 && node!=null
-     */
-    private void removeNode(DListNode<Entry<K, V>> node) {
-        if (this.size == 1) {
-            this.head = null;
-            this.tail = null;
-        } else if (this.head.equals(node)) {
-            this.head = node.getNext();
-            this.head.setPrevious(null);
-        } else if (this.tail.equals(node)) {
-            this.tail = node.getPrevious();
-            this.tail.setNext(null);
-        } else {
-            node.getPrevious().setNext(node.getNext());
-            node.getNext().setPrevious(node.getPrevious());
-        }
-        this.size--;
     }
 
     @Override
